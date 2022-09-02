@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "types.h": "c",
-        "stdio.h": "c",
-        "terminal_commands.h": "c",
-        "buffers.h": "c",
-        "ringbuffer.h": "c"
-    }
-}
