@@ -1,5 +1,5 @@
 .vscode/
-test.c
+test*
 *.out
 *.elf
 *.obj
