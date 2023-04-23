@@ -76,6 +76,28 @@ void DLL_push(DLL_t *ptr, const int val) {
 }
 
 /**
+ * @brief Функция помещения значения в начало двусвязанного списка
+ * 
+ * @param[in,out] ptr Указатель на двусвязанный список
+ * @param[in] val Значение
+ */
+void DLL_push_forward(DLL_t *ptr, const int val) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return;
+    }
+    Node_t *tmp = Node_init(val);
+    if (ptr->head == NULL) {
+        ptr->head = tmp;
+        ptr->tail = tmp;
+    } else {
+        tmp->next = ptr->head;
+        ptr->head->prev = tmp;
+        ptr->head = tmp;
+    }
+}
+
+/**
  * @brief Функция получения значения с вершины двусвязанного списка
  * 
  * @param[in,out] ptr Указатель на двусвязанный список
@@ -102,6 +124,37 @@ int DLL_pop(DLL_t *ptr) {
         Node_free(ptr->tail);
         tmp->next = NULL;
         ptr->tail = tmp;
+    }
+    return ret;
+}
+
+/**
+ * @brief Функция получения значения с начала двусвязанного списка
+ * 
+ * @param[in,out] ptr Указатель на двусвязанный список
+ * @return Значение с начала списка
+ */
+int DLL_pop_forward(DLL_t *ptr) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return -1;
+    }
+    if (ptr->head == NULL) {
+        fprintf(stderr, "Empty list\n");
+        return -2;
+    }
+    int ret;
+    if (ptr->head == ptr->tail) {
+        ret = ptr->head->val;
+        Node_free(ptr->head);
+        ptr->head = NULL;
+        ptr->tail = NULL;
+    } else {
+        ret = ptr->head->val;
+        Node_t *tmp = ptr->head->next;
+        Node_free(ptr->head);
+        tmp->prev = NULL;
+        ptr->head = tmp;
     }
     return ret;
 }

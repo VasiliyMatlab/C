@@ -73,6 +73,27 @@ void SLL_push(SLL_t *ptr, const int val) {
 }
 
 /**
+ * @brief Функция помещения значения в начало односвязанного списка
+ * 
+ * @param[in,out] ptr Указатель на односвязанный список
+ * @param[in] val Значение
+ */
+void SLL_push_forward(SLL_t *ptr, const int val) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return;
+    }
+    Node_t *tmp = Node_init(val);
+    if (ptr->head == NULL) {
+        ptr->head = tmp;
+        ptr->tail = tmp;
+    } else {
+        tmp->next = ptr->head;
+        ptr->head = tmp;
+    }
+}
+
+/**
  * @brief Функция получения значения с вершины односвязанного списка
  * 
  * @param[in,out] ptr Указатель на односвязанный список
@@ -101,6 +122,36 @@ int SLL_pop(SLL_t *ptr) {
         Node_free(ptr->tail);
         ptr->tail = tmp;
         ptr->tail->next = NULL;
+    }
+    return ret;
+}
+
+/**
+ * @brief Функция получения значения с начала односвязанного списка
+ * 
+ * @param[in,out] ptr Указатель на односвязанный список
+ * @return Значение с начала списка
+ */
+int SLL_pop_forward(SLL_t *ptr) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return -1;
+    }
+    if (ptr->head == NULL) {
+        fprintf(stderr, "Empty list\n");
+        return -2;
+    }
+    int ret;
+    if (ptr->head == ptr->tail) {
+        ret = ptr->head->val;
+        Node_free(ptr->head);
+        ptr->head = NULL;
+        ptr->tail = NULL;
+    } else {
+        ret = ptr->head->val;
+        Node_t *tmp = ptr->head->next;
+        Node_free(ptr->head);
+        ptr->head = tmp;
     }
     return ret;
 }

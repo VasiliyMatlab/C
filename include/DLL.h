@@ -24,7 +24,9 @@ typedef struct DLL {
 
 DLL_t *DLL_init(void);
 void DLL_push(DLL_t *ptr, const int val);
+void DLL_push_forward(DLL_t *ptr, const int val);
 int DLL_pop(DLL_t *ptr);
+int DLL_pop_forward(DLL_t *ptr);
 void DLL_print(const DLL_t *ptr);
 void DLL_free(DLL_t *ptr);
 
