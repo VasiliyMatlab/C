@@ -12,7 +12,7 @@ struct Example {
 };
 
 // Пример работы с переменными, завернутыми в void *
-int main() {
+int main(void) {
     float a = 10.f;
     float b = 20.f;
     double c = 555;
@@ -45,7 +45,7 @@ int main() {
 void swap(void *a, void *b, size_t size) {
     char *tmp;
     //создаём временную переменную для обмена
-    tmp = (char*) malloc(size);
+    tmp = (char *) malloc(size);
     memcpy(tmp, a, size);
     memcpy(a, b, size);
     memcpy(b, tmp, size);

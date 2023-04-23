@@ -2,3 +2,5 @@
 test.c
 *.out
 *.elf
+*.obj
+*.fifo

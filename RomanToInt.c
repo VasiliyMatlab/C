@@ -5,11 +5,11 @@ typedef unsigned int uint;
 static uint RomanToInt(char *Roman);
 static uint Choise(char c);
 
-int main(){
+int main(void){
     char Roman[16];
     printf("Enter a roman number: ");
     scanf("%s",Roman);
-    printf("Integer number: %d", RomanToInt(Roman));
+    printf("Integer number: %d\n", RomanToInt(Roman));
     return 0;
 }
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-gcc Server.c -o server
-echo "gcc Server.c -o server"
+gcc Server.c -o server.elf
+echo "gcc Server.c -o server.elf"
 
-gcc Client.c -o client
-echo "gcc Client.c -o client"
+gcc Client.c -o client.elf
+echo "gcc Client.c -o client.elf"

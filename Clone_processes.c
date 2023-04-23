@@ -17,10 +17,10 @@ int child(void *params) {
 // Пример создания процессов с помощью clone
 // При этом новый процесс будет являться потомком текущего процесса
 // Раскомментируй строку №23, чтобы новый процесс не являлся потомком текущего процесса
-int main() {
+int main(void) {
     int c = 0;
     int result = clone(child, child_stack+STACK_SIZE, 0, 0);
-    //int result = clone(child, child_stack+STACK_SIZE, CLONE_PARENT, 0);
+    // int result = clone(child, child_stack+STACK_SIZE, CLONE_PARENT, 0);
     printf("clone result = %d\n", result);
 
     while (1) {

@@ -15,14 +15,13 @@ typedef struct bytes {
 } bytes_t;
 
 // Пример использования битовых структур (полей)
-int main (void) {
+int main(void) {
     //          a0 a1  a2 a4 a5 a6 a7
     bytes_t x = {0, 3, 12, 1, 0, 1, 0};
     printf("sizeof byte_t = %u bytes\n", sizeof(bytes_t));
     printf("a0 = %u\n", x.a0);
     printf("a1 = %u\n", x.a1);
     printf("a2 = %u\n", x.a2);
-    //printf("a3 = %u\n", x.a3);
     printf("a4 = %u\n", x.a4);
     printf("a5 = %u\n", x.a5);
     printf("a6 = %u\n", x.a6);

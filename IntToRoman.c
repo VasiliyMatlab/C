@@ -4,11 +4,11 @@
 static char *IntToRoman(int num);
 static int ipow(int x, int n);
 
-int main(){
+int main(void){
     int number;
     printf("Enter an integer number: ");
     scanf("%d", &number);
-    printf("Roman number: %s", IntToRoman(number));
+    printf("Roman number: %s\n", IntToRoman(number));
     return 0;
 }
 

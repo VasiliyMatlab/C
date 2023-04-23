@@ -4,7 +4,7 @@
 
 void mysignal_handler(int);
 
-int main() {
+int main(void) {
     int c = 0;
 
     // Задаем обработчик сигнала SIGINT
@@ -14,6 +14,7 @@ int main() {
         printf("Hello, I'm here %d!\n", c++);
         usleep(1000000);
     }
+    
     return 0;
 }
 

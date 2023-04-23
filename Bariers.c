@@ -26,15 +26,13 @@ void *helloWorld(void *);
 // Пример работы с барьерами,
 // позволяющими синхронизировать потоки
 // в определенной точке
-int main(){
+int main(void){
     // Объявление переменных
     pthread_t threads[NUM_THREADS];
     int status;
-    int i;
-    int status_addr;
     someArgs_t args[NUM_THREADS];
     const char *messages[] = {
-        "First",
+        "First Mesage",
         NULL,
         "Third Message",
         "Fourth Message"
@@ -42,7 +40,7 @@ int main(){
     pthread_barrier_t barrier;
 
     // Заполнение струтур данными
-    for (i = 0; i < NUM_THREADS; i++) {
+    for (int i = 0; i < NUM_THREADS; i++) {
         args[i].id = i;
         args[i].msg = messages[i];
         args[i].bar = &barrier;
@@ -56,13 +54,14 @@ int main(){
     }
 
     // Создание потоков
-    for (i = 0; i < NUM_THREADS; i++) {
+    for (int i = 0; i < NUM_THREADS; i++) {
         status = pthread_create(&threads[i], NULL, helloWorld, (void*) &args[i]);
         if (status != 0) {
-            printf("main error: can't create thread, status = %d\n", status);
+            printf("main error: can't create thread #%d, status = %d\n", i, status);
             exit(ERROR_CREATE_THREAD);
         }
     }
+
     printf("Main Message\n");
 
     // Синхронизация потоков
@@ -75,28 +74,23 @@ int main(){
     }
 
     // Вывод результатов обработки
-    for (i = 0; i < NUM_THREADS; i++) {
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threads[i], NULL);
         printf("thread %d arg.out = %d\n", i, args[i].out);
     }
+
     return 0;
 }
 
 // Функция потоков
 void *helloWorld(void *args) {
-    someArgs_t *arg = (someArgs_t*) args;
-    int id = arg->id;
-    int len;
+    someArgs_t *arg = (someArgs_t *) args;
     int status;
-    int retVal;
 
     // Основная обработка функции
-    if (arg->msg == NULL) {
-        retVal = BAD_MESSAGE;
-    } else {
-        len = strlen(arg->msg);
+    if (arg->msg != NULL) {
         printf("%s\n", arg->msg);
-        arg->out = len;
-        retVal = SUCCESS;
+        arg->out = strlen(arg->msg);
     }
 
     // Синхронизация потоков
@@ -107,5 +101,6 @@ void *helloWorld(void *args) {
         printf("error wait barrier in thread %d with status = %d\n", arg->id, status);
         exit(ERROR_WAIT_BARRIER);
     }
-    return retVal;
+
+    return NULL;
 }

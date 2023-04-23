@@ -20,7 +20,7 @@ typedef struct use_mutex_tag{
 // Пример работы с мьютексами, позволяющими залочить
 // выполнение определенного участка кода для
 // использования одним единственным потоком
-int main() {
+int main(void) {
     pthread_t threads[NUM_OF_THREADS];
     size_t i;
     use_mutex_t param;  // мьютекс

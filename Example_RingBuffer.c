@@ -8,7 +8,7 @@
 // Команда "push <num>" помещает число <num> в буфер
 // Команда "pop" извлекает число из буфера
 // Команда "exit" очищает буфер и завершает выполнение программы
-int main() {
+int main(void) {
     ring_buffer_t *ring = init_ring_buffer();
     char buf[8];
     char num[3];

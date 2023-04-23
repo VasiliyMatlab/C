@@ -9,6 +9,11 @@
 // его ключ с помощью ftok(3)
 // В данной программе не обрабатываются ошибки и конфликтные ситуации!
 int main(int argc, char *argv[]) {
+	if (argc != 3) {
+		printf("Usage: %s <key1> <key2>\n", argv[0]);
+		return -1;
+	}
+
 	// Получаем 3 дескриптора
 	int f1 = shmget((key_t) atoi(argv[1]), 1000, IPC_CREAT | 0600);
 	int f2 = shmget((key_t) atoi(argv[2]), 1000, IPC_CREAT | 0600);
@@ -21,8 +26,7 @@ int main(int argc, char *argv[]) {
 	int *shared_memory3 = (int *) shmat(f3, NULL, 0);
 	
 	// Суммируем первые 100 чисел и записываем в новую область
-	int i = 0;
-	for (; i < 100; i++)
+	for (int i = 0; i < 100; i++)
 		shared_memory3[i] = shared_memory1[i] + shared_memory2[i];
 	printf("%d\n", 54321);
 
@@ -31,5 +35,6 @@ int main(int argc, char *argv[]) {
 	shmdt(shared_memory1);
 	shmdt(shared_memory2);
 	shmdt(shared_memory3);
+
 	return 0;
 }

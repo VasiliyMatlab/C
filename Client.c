@@ -11,7 +11,7 @@
 // Пример создания клиентского приложения, которое
 // подключается к серверу по протоколам TCP и IPv4
 // Использовать в сочетании с bash-скриптом '_client-server.sh'
-int main() {
+int main(void) {
     int status;
     srand(time(NULL));
 
@@ -31,8 +31,8 @@ int main() {
     status = inet_pton(AF_INET, servaddr, &addr.sin_addr);
     if (status == 0) {
         fprintf(stderr, "inet_pton failed: src does not contain a character"
-            " string representing a valid network address in the specified"
-            " address family\n");
+                " string representing a valid network address in the specified"
+                " address family\n");
         exit(EXIT_FAILURE);
     }
     if (status == -1) {

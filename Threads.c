@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
@@ -10,11 +9,11 @@
 void *helloWorld(void *args) {
     printf("Hello from thread!\n");
     pthread_exit(EXIT_SUCCESS);
-    //return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 
 // Пример работы программы с потоками
-int main() {
+int main(void) {
     pthread_t thread;
     int status;
     int status_addr;
@@ -36,6 +35,6 @@ int main() {
     }
 
     printf("joined with address %d\n", status_addr);
-    getchar();
+    
     return 0;
 }

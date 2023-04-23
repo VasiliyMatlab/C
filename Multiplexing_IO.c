@@ -7,7 +7,7 @@
 
 void read_and_report(int);
 
-int main() {
+int main(void) {
     // Создаем два именованных канала
     int f1 = open("./f1.fifo", O_RDWR);
     int f2 = open("./f2.fifo", O_RDWR);
@@ -18,13 +18,14 @@ int main() {
 
     printf("Descriptors: %d %d\n", f1, f2);
 
-    // Задаем время опроса
-    struct timeval timeout;
-    timeout.tv_sec = 5;
-    timeout.tv_usec = 0;
     fd_set read_set;
 
     while (1) {
+        // Задаем время опроса
+        struct timeval timeout;
+        timeout.tv_sec = 2;
+        timeout.tv_usec = 0;
+
         // Обнуляем маску
         FD_ZERO(&read_set);
         // Устанавливаем наблюдение за дескриптором f1
@@ -35,18 +36,16 @@ int main() {
         int largest_fd = (f1 > f2) ? f1+1 : f2+1;
         // Осуществляем наблюдение за каналами
         // вторая версия для наблюдения в течение какого-либо времени
-        int result = select(largest_fd, &read_set, NULL, NULL, NULL);
-        //int result = select(largest_fd, &read_set, NULL, NULL, &timeout);
+        // int result = select(largest_fd, &read_set, NULL, NULL, NULL);
+        int result = select(largest_fd, &read_set, NULL, NULL, &timeout);
         printf("select returned %d\n", result);
 
         switch (result) {
             case -1:
                 fprintf(stderr, "Error\n");
-                exit(-1);
                 break;
             case 0:
                 fprintf(stderr, "Timeout error\n");
-                exit(-1);
                 break;
             default:
                 // Проверяем первый дескриптор

@@ -9,7 +9,7 @@ int baz_int_float(int a, float b) {
 }
   
 int baz_float_int(float a, int b) {
-    return (int) a + b;
+    return (int) (a + b);
 }
   
 int baz_float_float(float a, float b) {
@@ -30,12 +30,9 @@ int baz_float_float(float a, float b) {
 // Пример работы с макросом Generic,
 // позволяющим выполнять перегрузку функций
 // на этапе компиляции
-int main() { 
-    int d = bar(1, 2);
-    int e = bar(1.0f, 2.0f);
- 
-    printf("%d\n", d);
-    printf("%d\n", e);
+int main(void) { 
+    printf("%d\n", bar(1, 2));
+    printf("%d\n", bar(1.0f, 2.0f));
      
     return 0;
 }

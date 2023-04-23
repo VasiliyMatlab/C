@@ -9,7 +9,7 @@
 
 // Пример создания сервера на протоколах TCP и IPv4
 // Использовать в сочетании с bash-скриптом '_client-server.sh'
-int main() {
+int main(void) {
     int status;
     ssize_t bytes;
     char buf[BUFSIZ];
@@ -93,5 +93,5 @@ int main() {
     close(client);
     close(server);
 
-    exit(EXIT_SUCCESS);
+    return 0;
 }

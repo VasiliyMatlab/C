@@ -7,15 +7,15 @@ typedef struct complex{
 } complex;
 
 // Операция взятия модуля числа
-double mod(complex number){
-    return sqrt(pow(number.Re,2)+pow(number.Im,2));
+double mod(complex number) {
+    return sqrt(pow(number.Re,2) + pow(number.Im,2));
 }
 
 // Нахождение аргумента числа
-double arg(complex number){
+double arg(complex number) {
     double phi;
     phi = atan(number.Im / number.Re);
-    if (number.Re < 0){
+    if (number.Re < 0) {
         if (number.Im >= 0)
             phi += M_PI;
         else
@@ -25,26 +25,26 @@ double arg(complex number){
 }
 
 // Возвращение действительной части числа
-double real(complex number){
+double real(complex number) {
     return number.Re;
 }
 // Возвращение мнимой части числа
-double imag(complex number){
+double imag(complex number) {
     return number.Im;
 }
 
 // Перевод из радиан в градусы
-double rad2grad(double phi){
+double rad2grad(double phi) {
     return phi * 180/M_PI;
 }
 
 // Перевод из градусов в радианы
-double grad2rad(double phi){
+double grad2rad(double phi) {
     return phi * M_PI/180;
 }
 
-// Сумма двух комплексных чисел
-complex sum(complex num1, complex num2){
+// Сложение двух комплексных чисел
+complex add(complex num1, complex num2) {
     complex num3;
     num3.Re = num1.Re + num2.Re;
     num3.Im = num1.Im + num2.Im;
@@ -52,7 +52,7 @@ complex sum(complex num1, complex num2){
 }
 
 // Разность двух комплексных чисел
-complex diff(complex num1, complex num2){
+complex sub(complex num1, complex num2) {
     complex num3;
     num3.Re = num1.Re - num2.Re;
     num3.Im = num1.Im - num2.Im;
@@ -60,7 +60,7 @@ complex diff(complex num1, complex num2){
 }
 
 // Произведение двух комплексных чисел
-complex mul(complex num1, complex num2){
+complex mul(complex num1, complex num2) {
     complex num3;
     num3.Re = num1.Re*num2.Re - num1.Im*num2.Im;
     num3.Im = num1.Re*num2.Im + num1.Im*num2.Re;
@@ -68,7 +68,7 @@ complex mul(complex num1, complex num2){
 }
 
 // Деление двух комплексных чисел
-complex div(complex num1, complex num2){
+complex div(complex num1, complex num2) {
     complex num3;
     double tmp = pow(num2.Re,2) + pow(num2.Im,2);
     num3.Re = (num1.Re*num2.Re + num1.Im*num2.Im) / tmp;
@@ -76,8 +76,8 @@ complex div(complex num1, complex num2){
     return num3;
 }
 
-// Сумма комплексного и действительного числа
-complex incr_real(complex number, double n){
+// Сложение комплексного и действительного числа
+complex add_real(complex number, double n) {
     complex num;
     num.Re = number.Re + n;
     num.Im = number.Im;
@@ -85,15 +85,15 @@ complex incr_real(complex number, double n){
 }
 
 // Разность комплексного и действительного числа
-complex decr_real(complex number, double n){
+complex sub_real(complex number, double n) {
     complex num;
     num.Re = number.Re - n;
     num.Im = number.Im;
     return num;
 }
 
-// Сумма комплексного и мнимого числа
-complex incr_imag(complex number, double n){
+// Сложение комплексного и мнимого числа
+complex add_imag(complex number, double n) {
     complex num;
     num.Re = number.Re;
     num.Im = number.Im + n;
@@ -101,7 +101,7 @@ complex incr_imag(complex number, double n){
 }
 
 // Разность комплексного и мнимого числа
-complex decr_imag(complex number, double n){
+complex sub_imag(complex number, double n) {
     complex num;
     num.Re = number.Re;
     num.Im = number.Im + n;
@@ -109,7 +109,7 @@ complex decr_imag(complex number, double n){
 }
 
 // Произведение комплексного и действительного числа
-complex gain_real(complex number, double n){
+complex mul_real(complex number, double n) {
     complex num;
     num.Re = number.Re * n;
     num.Im = number.Im * n;
@@ -117,7 +117,7 @@ complex gain_real(complex number, double n){
 }
 
 // Деление комплексного и действительного числа
-complex atten_real(complex number, double n){
+complex div_real(complex number, double n) {
     complex num;
     num.Re = number.Re / n;
     num.Im = number.Im / n;
@@ -125,7 +125,7 @@ complex atten_real(complex number, double n){
 }
 
 // Произведение комплексного и мнимого числа
-complex gain_imag(complex number, double n){
+complex mul_imag(complex number, double n) {
     complex num;
     num.Re = - number.Im * n;
     num.Im = number.Re * n;
@@ -133,7 +133,7 @@ complex gain_imag(complex number, double n){
 }
 
 // Деление комплексного и мнимого числа
-complex atten_imag(complex number, double n){
+complex div_imag(complex number, double n) {
     complex num;
     num.Re = number.Im / n;
     num.Im = - number.Re / n;
@@ -141,12 +141,12 @@ complex atten_imag(complex number, double n){
 }
 
 // Возвращает комплексно-сопряженное число
-void conjugate(complex *number){
+void conj(complex *number) {
     number->Im = - number->Im;
 }
 
 // Установка действительной и мнимой частей комплексного числа
-complex set(double real, double imag){
+complex set(double real, double imag) {
     complex number;
     number.Re = real;
     number.Im = imag;

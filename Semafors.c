@@ -17,7 +17,7 @@ void *signaler2(void *args);
 
 // Пример работы с семафорами, позволяющими
 // посылать сигналы между потоками
-void main(){
+int main(void){
     pthread_t thread1;
     pthread_t thread2;
     pthread_t thread3;
@@ -39,21 +39,24 @@ void main(){
     // Уничтожение семафоров
     sem_destroy(&semaphore1);
     sem_destroy(&semaphore2);
-    printf("\n");
+    
+    return 0;
 }
 
 void *waiter(void *args) {
     sleep(3);
     // Ожидание изменения состояния семафора 2
     sem_wait(&semaphore2);
-    printf("waiter work!");
+    printf("waiter work!\n");
+    return NULL;
 }
 
 void *signaler1(void *args) {
     sleep(1);
     // Изменение состояния семафора 1
     sem_post(&semaphore1);
-    printf("signaler1 work!");
+    printf("signaler1 work!\n");
+    return NULL;
 }
 
 void *signaler2(void *args) {
@@ -62,5 +65,6 @@ void *signaler2(void *args) {
     sem_wait(&semaphore1);
     // Изменение состояния семафора 2
     sem_post(&semaphore2);
-    printf("signaler2 work!");
+    printf("signaler2 work!\n");
+    return NULL;
 }
