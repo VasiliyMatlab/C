@@ -22,6 +22,8 @@ BST_t *BST_search(BST_t *ptr, const int val);
 void BST_insert(BST_t *ptr, const int val);
 BST_t *BST_getMin(BST_t *ptr);
 BST_t *BST_getMax(BST_t *ptr);
+void BST_print(const BST_t *ptr);
+void BST_print_forward(const BST_t *ptr);
 void BST_free(BST_t *ptr);
 
 

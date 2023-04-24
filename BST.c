@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "include/BST.h"
 
@@ -80,6 +81,34 @@ BST_t *BST_getMax(BST_t *ptr) {
     if (ptr->right == NULL)
         return ptr;
     return BST_getMax(ptr->right);
+}
+
+/**
+ * @brief Функция вывода на экран значений узлов дерева
+ * при симметричном обходе
+ * 
+ * @param[in] ptr Указатель на дерево
+ */
+void BST_print(const BST_t *ptr) {
+    if (ptr == NULL)
+        return;
+    BST_print(ptr->left);
+    fprintf(stdout, "%d ", ptr->val);
+    BST_print(ptr->right);
+}
+
+/**
+ * @brief Функция вывода на экран значений узлов дерева
+ * при прямом обходе
+ * 
+ * @param[in] ptr Указатель на дерево
+ */
+void BST_print_forward(const BST_t *ptr) {
+    if (ptr == NULL)
+        return;
+    BST_print_forward(ptr->left);
+    BST_print_forward(ptr->right);
+    fprintf(stdout, "%d ", ptr->val);
 }
 
 /**
