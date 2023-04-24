@@ -16,6 +16,21 @@ BST_t *BST_init(const int val) {
 }
 
 /**
+ * @brief Функция поиска узла дерева по значению
+ * 
+ * @param[in] ptr Указатель на дерево
+ * @param[in] val Значение узла
+ * @return Указатель на разыскиваемый узел
+ */
+BST_t *BST_search(BST_t *ptr, const int val) {
+    if (ptr == NULL)
+        return NULL;
+    if (ptr->val == val)
+        return ptr;
+    return (val < ptr->val) ? BST_search(ptr->left, val) : BST_search(ptr->right, val);
+}
+
+/**
  * @brief Функция помещения значения в дерево
  * 
  * @param[in,out] ptr Указатель на дерево
@@ -37,6 +52,34 @@ void BST_insert(BST_t *ptr, const int val) {
         else
             BST_insert(ptr->right, val);
     }
+}
+
+/**
+ * @brief Функция поиска узла с минимальным значением
+ * 
+ * @param[in] ptr Указатель на дерево
+ * @return Указатель на узел с минимальным значением
+ */
+BST_t *BST_getMin(BST_t *ptr) {
+    if (ptr == NULL)
+        return NULL;
+    if (ptr->left == NULL)
+        return ptr;
+    return BST_getMin(ptr->left);
+}
+
+/**
+ * @brief Функция поиска узла с максимальным значением
+ * 
+ * @param[in] ptr Указатель на дерево
+ * @return Указатель на узел с максимальным значением
+ */
+BST_t *BST_getMax(BST_t *ptr) {
+    if (ptr == NULL)
+        return NULL;
+    if (ptr->right == NULL)
+        return ptr;
+    return BST_getMax(ptr->right);
 }
 
 /**
