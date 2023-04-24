@@ -94,6 +94,37 @@ void SLL_push_forward(SLL_t *ptr, const int val) {
 }
 
 /**
+ * @brief Функция помещения значения в определенный индекс односвязанного списка
+ * 
+ * @param[in,out] ptr Указатель на односвязанный список
+ * @param[in] val Значение
+ * @param[in] idx Индекс
+ */
+void SLL_insert(SLL_t *ptr, const int val, const int idx) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return;
+    }
+    if (idx == 0) {
+        SLL_push_forward(ptr, val);
+        return;
+    }
+    int i = 1;
+    Node_t *tmp = ptr->head;
+    while (tmp != NULL) {
+        if (i == idx) {
+            Node_t *ins = Node_init(val);
+            ins->next = tmp->next;
+            tmp->next = ins;
+            return;
+        }
+        tmp = tmp->next;
+        i++;
+    }
+    fprintf(stderr, "Invalid index %d\n", idx);
+}
+
+/**
  * @brief Функция получения значения с вершины односвязанного списка
  * 
  * @param[in,out] ptr Указатель на односвязанный список

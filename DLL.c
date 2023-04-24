@@ -21,6 +21,29 @@ static Node_t *Node_init(const int val) {
 }
 
 /**
+ * @brief Функция поиска узла в двусвязанном списке под определенным индексом
+ * 
+ * @param[in] ptr Указатель на двусвязанный список
+ * @param[in] idx Индекс
+ * @return Укзатель на нужный узел
+ */
+static Node_t *Node_search(const DLL_t *ptr, const int idx) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return NULL;
+    }
+    int i = 0;
+    Node_t *ret = ptr->head;
+    while (ret != NULL) {
+        if (i == idx)
+            break;
+        ret = ret->next;
+        i++;
+    }
+    return ret;
+}
+
+/**
  * @brief Функция освобождения пространства узла
  * 
  * @param[in,out] node Указатель на узел для освобождения
@@ -98,6 +121,34 @@ void DLL_push_forward(DLL_t *ptr, const int val) {
 }
 
 /**
+ * @brief Функция помещения значения в определенный индекс двусвязанного списка
+ * 
+ * @param[in,out] ptr Указатель на двусвязанный список
+ * @param[in] val Значение
+ * @param[in] idx Индекс
+ */
+void DLL_insert(DLL_t *ptr, const int val, const int idx) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return;
+    }
+    if (idx == 0) {
+        DLL_push_forward(ptr, val);
+        return;
+    }
+    Node_t *tmp = Node_search(ptr, idx);
+    if (tmp == NULL) {
+        fprintf(stderr, "Invalid index %d\n", idx);
+        return;
+    }
+    Node_t *ins = Node_init(val);
+    tmp->prev->next = ins;
+    ins->prev = tmp->prev;
+    ins->next = tmp;
+    tmp->prev = ins;
+}
+
+/**
  * @brief Функция получения значения с вершины двусвязанного списка
  * 
  * @param[in,out] ptr Указатель на двусвязанный список
@@ -170,7 +221,7 @@ void DLL_print(const DLL_t *ptr) {
         return;
     }
     Node_t *tmp = ptr->head;
-    fprintf(stdout, "SLL: ");
+    fprintf(stdout, "DLL: ");
     while (tmp) {
         fprintf(stdout, "%d <-> ", tmp->val);
         tmp = tmp->next;
