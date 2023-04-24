@@ -194,18 +194,56 @@ int DLL_pop_forward(DLL_t *ptr) {
         fprintf(stderr, "Empty list\n");
         return -2;
     }
-    int ret;
+    int ret = ptr->head->val;
     if (ptr->head == ptr->tail) {
-        ret = ptr->head->val;
         Node_free(ptr->head);
         ptr->head = NULL;
         ptr->tail = NULL;
     } else {
-        ret = ptr->head->val;
         Node_t *tmp = ptr->head->next;
         Node_free(ptr->head);
         tmp->prev = NULL;
         ptr->head = tmp;
+    }
+    return ret;
+}
+
+/**
+ * @brief Функция получения значения под определенным индексом
+ * в двусвязанном списка
+ * 
+ * @param[in,out] ptr Указатель на двусвязанный список
+ * @param[in] idx Индекс
+ * @return Значение под определенным индексом
+ */
+int DLL_get(DLL_t *ptr, const int idx) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return -1;
+    }
+    if (ptr->head == NULL) {
+        fprintf(stderr, "Empty list\n");
+        return -2;
+    }
+    if (idx == 0) {
+        return DLL_pop_forward(ptr);
+    }
+    Node_t *tmp = Node_search(ptr, idx);
+    if (tmp == NULL) {
+        fprintf(stderr, "Invalid index %d\n", idx);
+        return -3;
+    }
+    int ret = tmp->val;
+    if (tmp == ptr->tail) {
+        tmp = tmp->prev;
+        Node_free(tmp->next);
+        tmp->next = NULL;
+        ptr->tail = tmp;
+    } else {
+        tmp = tmp->prev;
+        tmp->next = tmp->next->next;
+        Node_free(tmp->next->prev);
+        tmp->next->prev = tmp;
     }
     return ret;
 }

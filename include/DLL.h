@@ -28,6 +28,7 @@ void DLL_push_forward(DLL_t *ptr, const int val);
 void DLL_insert(DLL_t *ptr, const int val, const int idx);
 int DLL_pop(DLL_t *ptr);
 int DLL_pop_forward(DLL_t *ptr);
+int DLL_get(DLL_t *ptr, const int idx);
 void DLL_print(const DLL_t *ptr);
 void DLL_free(DLL_t *ptr);
 

@@ -188,6 +188,49 @@ int SLL_pop_forward(SLL_t *ptr) {
 }
 
 /**
+ * @brief Функция получения значения под определенным индексом
+ * в односвязанном списка
+ * 
+ * @param[in,out] ptr Указатель на односвязанный список
+ * @param[in] idx Индекс
+ * @return Значение под определенным индексом
+ */
+int SLL_get(SLL_t *ptr, const int idx) {
+    if (ptr == NULL) {
+        fprintf(stderr, "Uninitialized list\n");
+        return -1;
+    }
+    if (ptr->head == NULL) {
+        fprintf(stderr, "Empty list\n");
+        return -2;
+    }
+    if (idx == 0) {
+        return SLL_pop_forward(ptr);
+    }
+    int i = 1;
+    Node_t *tmp = ptr->head;
+    while (tmp != NULL) {
+        if (i == idx) {
+            int ret = tmp->next->val;
+            if (tmp->next == ptr->tail) {
+                Node_free(tmp->next);
+                tmp->next = NULL;
+                ptr->tail = tmp;
+                return ret;
+            }
+            Node_t *nxt = tmp->next->next;
+            Node_free(tmp->next);
+            tmp->next = nxt;
+            return ret;
+        }
+        tmp = tmp->next;
+        i++;
+    }
+    fprintf(stderr, "Invalid index %d\n", idx);
+    return -3;
+}
+
+/**
  * @brief Функция вывода на экран односвязанного списка
  * 
  * @param[in] ptr Указатель на односвязанный список
